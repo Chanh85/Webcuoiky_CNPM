@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Webcuoiky.Models.producttable>
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="jumbotron">
+    <h1>VietAnhCo.Ltd</h1>
+    <p class="lead">VietAnhCo.Ltd is a sole proprietorship that sells high-end supplement facts products.</p>
+    <p>@Html.ActionLink("About Us", "About", "Home", new { area = "" }, new { @class = "btn btn-primary btn-lg" })</p>
+</div>
+
+<div>
+    <a class="btn btn-success" href="@Url.Action("checkout","Home")">Your Cart</a>
+
+</div>
+<div>
+    <h2>Our Products</h2>
+    <table class="table">
+        <tr>
+            <th>Product name</th>
+            <th>Product category</th>
+            <th>Product price</th>
+            <th>Add to Cart</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.productname</td>
+                <td>@item.productcategory</td>
+                <td>@item.productprice</td>
+                @*<td class="btn btn-success">@Html.ActionLink("Cart", "addtocart", new { id = @item.productid })</td>*@
+                <td><a class="btn btn-success" href="@Url.Action("addtocart",new { id = @item.productid })">Add to Cart</a></td>
+            </tr>
+        }
+
+
+    </table>
+</div>
+

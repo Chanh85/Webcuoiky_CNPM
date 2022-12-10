@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3c1f050f7f6c467cbc379dcc5a65be2a" Name="Diagram1">
+        <EntityTypeShape EntityType="BanHangModel.billtable" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangModel.cattable" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangModel.producttable" Width="1.5" PointX="5.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangModel.SellerTbl" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangModel.tbl_role" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="BanHangModel.tbl_user" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <AssociationConnector Association="BanHangModel.FK_billtable_tbl_user" ManuallyRouted="false" />
+        <AssociationConnector Association="BanHangModel.FK_tbl_role_tbl_user" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BanHangModel.tbl_order" Width="1.5" PointX="8" PointY="2.125" />
+        <AssociationConnector Association="BanHangModel.FK_tbl_order_billtable" />
+        <AssociationConnector Association="BanHangModel.FK_tbl_order_producttable" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,63 @@
+﻿@model Webcuoiky.Models.producttable
+
+@{
+    ViewBag.Title = "checkout";
+}
+
+<h2>Checkout</h2>
+
+@if (TempData["cart"] != null)
+{
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+        @foreach (var item in TempData["cart"] as List<Webcuoiky.Models.cart>)
+        {
+            <tr>
+                <td>@item.pro_id</td>
+                <td>@item.pro_name</td>
+                <td>@item.price</td>
+                <td>@item.qty</td>
+                <td>@item.total</td>
+                @*<td class="btn btn-sm btn-success">@Html.ActionLink("Remove", "remove", new { id = @item.pro_id}) </td>*@
+                <td><a class="btn btn-success" href="@Url.Action("remove",new { id = @item.pro_id })">Remove</a></td>
+            </tr>
+        }
+        <tfoot>
+        <td colspan="4">
+        </td>
+        <td>Total: @TempData["total"] VND</td>
+        </tfoot>
+    </table>
+
+
+}
+else
+{
+    <h1>Cart is empty</h1>
+    @Html.ActionLink("Go back", "Index", "Home")
+}
+
+@if (TempData["cart"] != null)
+{
+    using (Html.BeginForm())
+    {
+        <label for="payment">Choose a payment method:</label>
+        <select name="cars" id="cars">
+            <option value="cod">Ship COD</option>
+            <option value="momo">MOMO</option>
+            <option value="paypal">Paypal</option>
+           
+        </select>
+
+        <br />
+        <br />
+        <input type="submit" value="Buy now " class="btn btn-success" />
+    }
+}
+

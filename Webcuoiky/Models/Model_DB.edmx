@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BanHangModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="billtable">
+          <Key>
+            <PropertyRef Name="billid" />
+          </Key>
+          <Property Name="billid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="total_bill" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cattable">
+          <Key>
+            <PropertyRef Name="catid" />
+          </Key>
+          <Property Name="catid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="catname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="catdesc" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="producttable">
+          <Key>
+            <PropertyRef Name="productid" />
+          </Key>
+          <Property Name="productid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="productquantity" Type="int" Nullable="false" />
+          <Property Name="productprice" Type="int" Nullable="false" />
+          <Property Name="productcategory" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SellerTbl">
+          <Key>
+            <PropertyRef Name="SellerId" />
+          </Key>
+          <Property Name="SellerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SellerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SellerAge" Type="int" Nullable="false" />
+          <Property Name="SellerPhone" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_order">
+          <Key>
+            <PropertyRef Name="o_id" />
+          </Key>
+          <Property Name="o_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productid" Type="int" Nullable="false" />
+          <Property Name="billid" Type="int" Nullable="false" />
+          <Property Name="date" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="total" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_role">
+          <Key>
+            <PropertyRef Name="id_role" />
+          </Key>
+          <Property Name="id_role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_billtable_tbl_user">
+          <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+          <End Role="billtable" Type="Self.billtable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="billtable">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_order_billtable">
+          <End Role="billtable" Type="Self.billtable" Multiplicity="1" />
+          <End Role="tbl_order" Type="Self.tbl_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="billtable">
+              <PropertyRef Name="billid" />
+            </Principal>
+            <Dependent Role="tbl_order">
+              <PropertyRef Name="billid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_order_producttable">
+          <End Role="producttable" Type="Self.producttable" Multiplicity="1" />
+          <End Role="tbl_order" Type="Self.tbl_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producttable">
+              <PropertyRef Name="productid" />
+            </Principal>
+            <Dependent Role="tbl_order">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_role_tbl_user">
+          <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+          <End Role="tbl_role" Type="Self.tbl_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_role">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BanHangModelStoreContainer">
+          <EntitySet Name="billtable" EntityType="Self.billtable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cattable" EntityType="Self.cattable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="producttable" EntityType="Self.producttable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SellerTbl" EntityType="Self.SellerTbl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_order" EntityType="Self.tbl_order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_role" EntityType="Self.tbl_role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_user" EntityType="Self.tbl_user" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_billtable_tbl_user" Association="Self.FK_billtable_tbl_user">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="billtable" EntitySet="billtable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_order_billtable" Association="Self.FK_tbl_order_billtable">
+            <End Role="billtable" EntitySet="billtable" />
+            <End Role="tbl_order" EntitySet="tbl_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_order_producttable" Association="Self.FK_tbl_order_producttable">
+            <End Role="producttable" EntitySet="producttable" />
+            <End Role="tbl_order" EntitySet="tbl_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_role_tbl_user" Association="Self.FK_tbl_role_tbl_user">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="tbl_role" EntitySet="tbl_role" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BanHangModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="billtable">
+          <Key>
+            <PropertyRef Name="billid" />
+          </Key>
+          <Property Name="billid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbl_user" Relationship="Self.FK_billtable_tbl_user" FromRole="billtable" ToRole="tbl_user" />
+          <NavigationProperty Name="tbl_order" Relationship="BanHangModel.FK_tbl_order_billtable" FromRole="billtable" ToRole="tbl_order" />
+          <Property Name="total_bill" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cattable">
+          <Key>
+            <PropertyRef Name="catid" />
+          </Key>
+          <Property Name="catid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="catname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="catdesc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="producttable">
+          <Key>
+            <PropertyRef Name="productid" />
+          </Key>
+          <Property Name="productid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="productquantity" Type="Int32" Nullable="false" />
+          <Property Name="productprice" Type="Int32" Nullable="false" />
+          <Property Name="productcategory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_order" Relationship="BanHangModel.FK_tbl_order_producttable" FromRole="producttable" ToRole="tbl_order" />
+        </EntityType>
+        <EntityType Name="SellerTbl">
+          <Key>
+            <PropertyRef Name="SellerId" />
+          </Key>
+          <Property Name="SellerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SellerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SellerAge" Type="Int32" Nullable="false" />
+          <Property Name="SellerPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbl_role">
+          <Key>
+            <PropertyRef Name="id_role" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tbl_user" Relationship="Self.FK_tbl_role_tbl_user" FromRole="tbl_role" ToRole="tbl_user" />
+          <Property Name="id_role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="tbl_user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="billtables" Relationship="Self.FK_billtable_tbl_user" FromRole="tbl_user" ToRole="billtable" />
+          <NavigationProperty Name="tbl_role" Relationship="Self.FK_tbl_role_tbl_user" FromRole="tbl_user" ToRole="tbl_role" />
+        </EntityType>
+        <Association Name="FK_billtable_tbl_user">
+          <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+          <End Role="billtable" Type="Self.billtable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="billtable">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_role_tbl_user">
+          <End Role="tbl_user" Type="Self.tbl_user" Multiplicity="1" />
+          <End Role="tbl_role" Type="Self.tbl_role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_user">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tbl_role">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BanHangDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="billtables" EntityType="Self.billtable" />
+          <EntitySet Name="cattables" EntityType="Self.cattable" />
+          <EntitySet Name="producttables" EntityType="Self.producttable" />
+          <EntitySet Name="SellerTbls" EntityType="Self.SellerTbl" />
+          <EntitySet Name="tbl_role" EntityType="Self.tbl_role" />
+          <EntitySet Name="tbl_user" EntityType="Self.tbl_user" />
+          <AssociationSet Name="FK_billtable_tbl_user" Association="Self.FK_billtable_tbl_user">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="billtable" EntitySet="billtables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_role_tbl_user" Association="Self.FK_tbl_role_tbl_user">
+            <End Role="tbl_user" EntitySet="tbl_user" />
+            <End Role="tbl_role" EntitySet="tbl_role" />
+          </AssociationSet>
+          <EntitySet Name="tbl_order" EntityType="BanHangModel.tbl_order" />
+          <AssociationSet Name="FK_tbl_order_billtable" Association="BanHangModel.FK_tbl_order_billtable">
+            <End Role="billtable" EntitySet="billtables" />
+            <End Role="tbl_order" EntitySet="tbl_order" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_order_producttable" Association="BanHangModel.FK_tbl_order_producttable">
+            <End Role="producttable" EntitySet="producttables" />
+            <End Role="tbl_order" EntitySet="tbl_order" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tbl_order">
+          <Key>
+            <PropertyRef Name="o_id" />
+          </Key>
+          <Property Name="o_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productid" Type="Int32" Nullable="false" />
+          <Property Name="billid" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="total" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="billtable" Relationship="BanHangModel.FK_tbl_order_billtable" FromRole="tbl_order" ToRole="billtable" />
+          <NavigationProperty Name="producttable" Relationship="BanHangModel.FK_tbl_order_producttable" FromRole="tbl_order" ToRole="producttable" />
+        </EntityType>
+        <Association Name="FK_tbl_order_billtable">
+          <End Type="BanHangModel.billtable" Role="billtable" Multiplicity="1" />
+          <End Type="BanHangModel.tbl_order" Role="tbl_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="billtable">
+              <PropertyRef Name="billid" />
+            </Principal>
+            <Dependent Role="tbl_order">
+              <PropertyRef Name="billid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_order_producttable">
+          <End Type="BanHangModel.producttable" Role="producttable" Multiplicity="1" />
+          <End Type="BanHangModel.tbl_order" Role="tbl_order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="producttable">
+              <PropertyRef Name="productid" />
+            </Principal>
+            <Dependent Role="tbl_order">
+              <PropertyRef Name="productid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BanHangModelStoreContainer" CdmEntityContainer="BanHangDB">
+          <EntitySetMapping Name="billtables">
+            <EntityTypeMapping TypeName="BanHangModel.billtable">
+              <MappingFragment StoreEntitySet="billtable">
+                <ScalarProperty Name="total_bill" ColumnName="total_bill" />
+                <ScalarProperty Name="billid" ColumnName="billid" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cattables">
+            <EntityTypeMapping TypeName="BanHangModel.cattable">
+              <MappingFragment StoreEntitySet="cattable">
+                <ScalarProperty Name="catid" ColumnName="catid" />
+                <ScalarProperty Name="catname" ColumnName="catname" />
+                <ScalarProperty Name="catdesc" ColumnName="catdesc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="producttables">
+            <EntityTypeMapping TypeName="BanHangModel.producttable">
+              <MappingFragment StoreEntitySet="producttable">
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="productname" ColumnName="productname" />
+                <ScalarProperty Name="productquantity" ColumnName="productquantity" />
+                <ScalarProperty Name="productprice" ColumnName="productprice" />
+                <ScalarProperty Name="productcategory" ColumnName="productcategory" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SellerTbls">
+            <EntityTypeMapping TypeName="BanHangModel.SellerTbl">
+              <MappingFragment StoreEntitySet="SellerTbl">
+                <ScalarProperty Name="SellerId" ColumnName="SellerId" />
+                <ScalarProperty Name="SellerName" ColumnName="SellerName" />
+                <ScalarProperty Name="SellerAge" ColumnName="SellerAge" />
+                <ScalarProperty Name="SellerPhone" ColumnName="SellerPhone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_role">
+            <EntityTypeMapping TypeName="BanHangModel.tbl_role">
+              <MappingFragment StoreEntitySet="tbl_role">
+                <ScalarProperty Name="id_role" ColumnName="id_role" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_user">
+            <EntityTypeMapping TypeName="BanHangModel.tbl_user">
+              <MappingFragment StoreEntitySet="tbl_user">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_order">
+            <EntityTypeMapping TypeName="BanHangModel.tbl_order">
+              <MappingFragment StoreEntitySet="tbl_order">
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="billid" ColumnName="billid" />
+                <ScalarProperty Name="productid" ColumnName="productid" />
+                <ScalarProperty Name="o_id" ColumnName="o_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,50 @@
+﻿@model Webcuoiky.Models.producttable
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+  
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.productname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.productquantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productquantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.productprice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productprice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.productcategory)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.productcategory)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.productid }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

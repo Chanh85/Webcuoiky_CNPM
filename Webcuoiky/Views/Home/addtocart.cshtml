@@ -1,0 +1,19 @@
+﻿@model Webcuoiky.Models.producttable
+
+@{
+    ViewBag.Title = "addtocart";
+}
+
+<h2>addtocart</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <h3>Product name: @Model.productname</h3>
+        <h3>Product category: @Model.productcategory</h3>
+        <h3>Product price: @Model.productprice</h3>
+
+        <input type="number" min="1" max="30" id="qty" name="qty" />
+        <input type="submit" value="Submit" />
+    </div>
+}

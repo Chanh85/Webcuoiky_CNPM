@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Webcuoiky.Models.producttable>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.productname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.productquantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.productprice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.productcategory)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.productname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.productquantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.productprice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.productcategory)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.productid }) |
+            @Html.ActionLink("Details", "Details", new { id=item.productid }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.productid })
+        </td>
+    </tr>
+}
+
+</table>
