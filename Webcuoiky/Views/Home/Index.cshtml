@@ -27,7 +27,6 @@
                 <td>@item.productname</td>
                 <td>@item.productcategory</td>
                 <td>@item.productprice</td>
-                @*<td class="btn btn-success">@Html.ActionLink("Cart", "addtocart", new { id = @item.productid })</td>*@
                 <td><a class="btn btn-success" href="@Url.Action("addtocart",new { id = @item.productid })">Add to Cart</a></td>
             </tr>
         }
