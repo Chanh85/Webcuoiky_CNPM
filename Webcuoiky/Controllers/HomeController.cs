@@ -17,13 +17,6 @@ namespace Webcuoiky.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-
-            //Session["name"] = "Quang Trung";
-            //tbl_user user = new tbl_user();
-            //Session["id"] = user.id.ToString();
-            //string id = (string)Session["id"];
-
-
             if (TempData["cart"] != null)
             {
                 int total_price = 0;
@@ -225,8 +218,6 @@ namespace Webcuoiky.Controllers
             }
             TempData.Remove("total");
             TempData.Remove("cart");
-            TempData["msg"] = "Transaction completed!";
-            TempData.Keep();
             return Redirect("Dashboard");
         }
 
