@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Webcuoiky.Models;
+using System.Data.Entity;
+
 
 
 namespace Webcuoiky.Controllers
@@ -220,7 +222,5 @@ namespace Webcuoiky.Controllers
             TempData.Remove("cart");
             return Redirect("Dashboard");
         }
-
-
     }
 }
